@@ -1,7 +1,9 @@
 package com.xian.lessonthree.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.xian.lessonthree.DO.UserDO;
 import com.xian.lessonthree.jpa.UserJPA;
+import com.xian.lessonthree.utils.LoggerUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,14 +25,17 @@ public class LoginController {
     private UserJPA userJPA;
 
     @RequestMapping(value = "/login")
-    public String login(UserDO userDO, HttpServletRequest request) {
+    public JSONObject login( HttpServletRequest request, UserDO userDO) {
         UserDO user = userJPA.findByNameAndPwd(userDO.getName(), userDO.getPwd());
+        JSONObject jsonObject = new JSONObject();
         if (ObjectUtils.isEmpty(user)) {
-            return "不存在该用户";
+            jsonObject.put("msg",String.format("登录失败", userDO.getName()));
         } else {
             // 将用户写入session
             request.getSession().setAttribute("session_user", userDO);
-            return "成功登录";
+            jsonObject.put("msg",String.format("用户:%s~~登录成功", userDO.getName()));
         }
+        request.setAttribute(LoggerUtils.LOGGER_RETURN,jsonObject);
+        return jsonObject;
     }
 }

@@ -1,6 +1,7 @@
 package com.xian.lessonthree.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.xian.lessonthree.interceptor.LoggerInterceptor;
 import com.xian.lessonthree.interceptor.SessionInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,6 +29,7 @@ public class SessionConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new LoggerInterceptor()).addPathPatterns("/**");
         registry.addInterceptor(new SessionInterceptor()).addPathPatterns("/**");
     }
 
