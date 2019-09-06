@@ -1,6 +1,9 @@
 package com.xian.lessonthree.DO;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -14,6 +17,8 @@ import java.io.Serializable;
 @Entity
 @Table(name = "t_user")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserDO implements Serializable {
 
     private static final long serialVersionUID = 3882601713927827616L;
@@ -27,8 +32,13 @@ public class UserDO implements Serializable {
     private String name;
 
     @Column(name = "t_age")
+    /** JSONField注解要起效果，需要配置fastjson的相关配置 */
+    @JSONField(serialize = false)
     private int age;
 
     @Column(name = "t_address")
     private String address;
+
+    @Column(name = "t_pwd")
+    private String pwd;
 }
