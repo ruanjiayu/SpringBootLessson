@@ -1,0 +1,4 @@
+# 可以指定屏蔽的位置
+logging:
+  level:
+    com.xian.lessonseven.TestController: "off"
