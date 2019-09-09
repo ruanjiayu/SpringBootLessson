@@ -1,0 +1,11 @@
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+  servlet:
+    multipart:
+      ## 上传文件最大容量
+      max-file-size: 1024MB
+      ## 最大请求容量
+      max-request-size: 2014MB
